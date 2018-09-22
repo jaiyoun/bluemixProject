@@ -4,7 +4,7 @@
 
 <mapper namespace="com.ibmMeeting.Dao.SchedulerDao">
 
-
+<!-- 고침 -->
 	<!-- 작성자 : 박성준 -->
 	<!-- 예약시간 전 이메일 전송-->
 	<select id="emailSendUserCount" parameterType="HashMap" resultType="Integer">
@@ -13,19 +13,20 @@
 		FROM RESERVATION, CONFERENCE
 		WHERE RSV_DATE = #{nowDate} 
 		AND RSV_EMAIL_CHECK = 'Y' 
-		AND RSV_START_TIME < #{nowTime} 
+		AND RSV_START_TIME >= #{nowTime} 
 		AND  RSV_CONF_NO = CONF_NO
 		AND RSV_CONFIRM_STATE = 'Y';
    	]]>
 	</select>
 
+<!-- 고침 -->
 <!-- 작성자 : 박성준 -->
 	<!-- 이메일 받을 사용자 -->
 	<select id="reservaionEmailInfo" parameterType="HashMap" resultType="HashMap">
     <![CDATA[ 
     	SELECT RSV_NO , RSV_DATE, RSV_START_TIME, RSV_END_TIME, RSV_MEM_EM, CONF_NM , RSV_TITLE , RSV_MEM_NM
 		FROM RESERVATION, CONFERENCE
-		WHERE RSV_DATE = #{nowDate} AND RSV_EMAIL_CHECK = 'Y' AND RSV_START_TIME < #{nowTime} AND  RSV_CONF_NO = CONF_NO AND RSV_CONFIRM_STATE = 'Y';
+		WHERE RSV_DATE = #{nowDate} AND RSV_EMAIL_CHECK = 'Y' AND RSV_START_TIME >= #{nowTime} AND  RSV_CONF_NO = CONF_NO AND RSV_CONFIRM_STATE = 'Y';
    	]]>
 	</select>
 
